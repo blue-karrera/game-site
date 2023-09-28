@@ -1,8 +1,24 @@
 package main
 
-import "fmt"
+import (
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+)
+
+func root(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte("welcome"))
+}
 
 func main() {
-    fmt.Println("waddup")
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	//r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	//	w.Write([]byte("welcome"))
+	//})
+    r.Get("/", root)
+	http.ListenAndServe(":3000", r)
 }
+
 
