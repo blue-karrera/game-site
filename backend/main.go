@@ -5,13 +5,15 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+
+    "game-site/internal"
 )
 
 func root(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("welcome"))
 }
 
-func main() {
+func network_test() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	//r.Get("/", func(w http.ResponseWriter, r *http.Request) {
@@ -19,6 +21,13 @@ func main() {
 	//})
     r.Get("/", root)
 	http.ListenAndServe(":3000", r)
+}
+
+func bridge_test() {
+}
+
+func main() {
+    internal.Test()
 }
 
 
