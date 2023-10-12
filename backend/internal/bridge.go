@@ -3,7 +3,7 @@ package internal
 /*
 int return_int();
 int* return_ints();
-#cgo LDFLAGS: -L. -L../ -lclib -lhlib
+#cgo LDFLAGS: -L. -L../ -lclib
 */
 import "C"
 import "fmt"

@@ -27,7 +27,7 @@ func bridge_test() {
 }
 
 func main() {
-    internal.Test()
+    internal.TestHS()
 }
 
 
