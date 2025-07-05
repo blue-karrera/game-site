@@ -1,33 +1,50 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-
-    "game-site/internal"
 )
 
-func root(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("welcome"))
+type GreetRequest struct {
+	Name string `json:"name"`
 }
 
-func network_test() {
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-	//r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-	//	w.Write([]byte("welcome"))
-	//})
-    r.Get("/", root)
-	http.ListenAndServe(":3000", r)
+type GreetResponse struct {
+	Message string `json:"message"`
 }
 
-func bridge_test() {
+func greetHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Invalid method", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// handle CORS
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	var req GreetRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Bad request", http.StatusBadRequest)
+		return
+	}
+
+	resp := GreetResponse{Message: fmt.Sprintf("Hello, %s!", req.Name)}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resp)
 }
 
 func main() {
-    internal.Test()
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+
+	r.Post("/greet", greetHandler)
+
+	fmt.Println("Listening on http://localhost:8080")
+	http.ListenAndServe(":8080", r)
 }
 
 
