@@ -1,10 +1,10 @@
 <script lang="ts">
-    let name = $state('');
-    let message = $state('');
+    let name = $state("");
+    let message = $state("");
 
     $effect(async () => {
-        if (!name) {
-            message = '';
+        if (name === "") {
+            message = "";
             return;
         }
 
