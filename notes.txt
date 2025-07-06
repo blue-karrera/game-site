@@ -1,0 +1,33 @@
+## notes for myself (opossalite)
+- game site should have a header which is the same always, includes going back
+    to home or logging in and that type of stuff, seeing your party
+- each game should be handled individually with something like goroutines
+- add a singleplayer option against AI, which will run with rust
+- the rust AI piece will be communicated with from the go backend
+- the rust backend will handle running the trained AIs for each game, stored
+    in a database
+- each AI will have many iterations, so that it's easy to manage and rollback
+    anything that went wrong during training, but the rust backend will always
+    use the last iteration for players
+- training will be handled separately, and can be continued and saved back into
+    the database as a new iteration, and each iteration can be continued off
+    again to train further
+- training will be done via tyrosine, which I still gotta revitalize from the
+    past
+- training will be done in the background, away from the users, and might have
+    some special interface for it or something? maybe the db should be separate
+    from the users db, so that the ai db can be copied, iterated on locally, and
+    then reuploaded. No that's dumb, because then the server where the game site
+    is being run on wouldn't be handling the training, and honestly we want it
+    to handle the training, so maybe we'll have a password protected admin
+    interface where further training can be handled. I just want to make sure
+    that the AI training is easy to continue off, and will safe itself
+    securely. Even so, I do think a separate db is probably for the best,
+    disjoint from the player database.
+
+
+
+
+
+
+
