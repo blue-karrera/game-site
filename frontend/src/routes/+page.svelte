@@ -20,7 +20,8 @@
 </script>
 
 <main>
-    <h1>Greet As You Type</h1>
+    <h1>ey papa</h1>
+    <h1>Greet As You Type (broken lol)</h1>
         <input type="text" bind:value={name} placeholder="Type your name…" autocomplete="off"/>
     {#if message}
         <p>{message}</p>
